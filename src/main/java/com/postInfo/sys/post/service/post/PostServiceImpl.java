@@ -17,9 +17,16 @@ public class PostServiceImpl implements PostService {
     private PostRepository postRepository;
 
     @Override
-    public List<Post> findAll(String userId) {
+    public List<Post> findAllByUser(String userId) {
         List<Post> posts = new ArrayList<>();
-        postRepository.findByUserId(userId).forEach(posts::add);
+        postRepository.findByUserIdOrderByLastModifiedDateDesc(userId).forEach(posts::add);
+        return posts;
+    }
+
+    @Override
+    public List<Post> findAllPosts() {
+        List<Post> posts = new ArrayList<>();
+        postRepository.findAllByOrderByLastModifiedDateDesc().forEach(posts::add);
         return posts;
     }
 

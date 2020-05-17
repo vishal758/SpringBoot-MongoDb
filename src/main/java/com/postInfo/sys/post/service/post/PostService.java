@@ -8,8 +8,9 @@ import java.util.List;
 
 @Service
 public interface PostService {
-    List<Post> findAll(String userId);
+    List<Post> findAllByUser(String userId);
 
+    List<Post> findAllPosts();
     Post save(Post post);
 
     Post findBy_id(String id);

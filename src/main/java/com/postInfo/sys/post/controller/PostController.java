@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -19,9 +20,9 @@ public class PostController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public List<Post> getAllPosts(@PathVariable String userId) {
-        return postService.findAll(userId);
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public List<Post> getAllPostsByUser(@PathVariable String userId) {
+        return postService.findAllByUser(userId);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -29,12 +30,13 @@ public class PostController {
         return postService.findBy_id(id);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public Post createPost(@Valid @RequestBody Post post, @PathVariable String userId) {
         User user = userService.findBy_id(userId);
         post.set_id(post.get_id());
         post.setUserId(userId);
         post.setAuthor(user.getUserName());
+        post.setLastModifiedDate(Calendar.getInstance().getTime());
         postService.save(post);
         return post;
     }
@@ -45,6 +47,7 @@ public class PostController {
         post.set_id(id);
         post.setUserId(userId);
         post.setAuthor(user.getUserName());
+        post.setLastModifiedDate(Calendar.getInstance().getTime());
         postService.save(post);
     }
 

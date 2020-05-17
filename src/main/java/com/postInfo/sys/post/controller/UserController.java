@@ -15,7 +15,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public List<User> findAll() {
         return userService.findAll();
     }
@@ -25,17 +25,17 @@ public class UserController {
         return userService.findBy_id(id);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public void modifyPostById(@PathVariable("id") String id, @Valid @RequestBody User user) {
-        user.set_id(id);
-        userService.save(user);
-    }
-
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public User createPost(@Valid @RequestBody User user) {
         user.set_id(user.get_id());
         userService.save(user);
         return user;
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public void modifyPostById(@PathVariable("id") String id, @Valid @RequestBody User user) {
+        user.set_id(id);
+        userService.save(user);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

@@ -1,8 +1,14 @@
 package com.postInfo.sys.post.model;
 
 //import org.bson.types.String;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.Date;
 
 @Document(collection = "post")
 public class Post {
@@ -11,14 +17,18 @@ public class Post {
     private String title;
     private String desc;
     private String author;
+
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date lastModifiedDate;
     private String userId;
 
-    public Post(String _id, String title, String desc, String userId, String author) {
+    public Post(String _id, String title, String desc, String userId, String author, Date lastModifiedDate) {
         this._id = _id;
         this.title = title;
         this.desc = desc;
         this.userId = userId;
         this.author = author;
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     public String get_id() {
@@ -35,6 +45,14 @@ public class Post {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     public String getTitle() {
