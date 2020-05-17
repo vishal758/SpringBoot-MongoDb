@@ -10,13 +10,15 @@ public class Post {
     private String _id;
     private String title;
     private String desc;
+    private String author;
     private String userId;
 
-    public Post(String _id, String title, String desc, String userId) {
+    public Post(String _id, String title, String desc, String userId, String author) {
         this._id = _id;
         this.title = title;
         this.desc = desc;
         this.userId = userId;
+        this.author = author;
     }
 
     public String get_id() {
@@ -25,6 +27,14 @@ public class Post {
 
     public void set_id(String _id) {
         this._id = _id;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getTitle() {
